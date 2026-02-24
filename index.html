@@ -1,57 +1,56 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Mind | هوش مصنوعی نووا</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Mind | AI Assistant</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <div id="overlay" onclick="toggleS()"></div>
-    <div id="notif"></div>
+<div id="overlay" onclick="toggleS()"></div>
+<div id="notif"></div>
 
-    <div id="sidebar">
-        <div class="side-head">
-            <button onclick="newChat()" class="btn-new">+ گفتگو جدید</button>
-            <input type="text" class="search-box" placeholder="جستجو در تاریخچه..." oninput="renderH(this.value)">
+<div id="sidebar">
+    <div class="side-head">
+        <button onclick="newChat()" class="btn-new">+ New Chat</button>
+        <input type="text" class="search-box" placeholder="Search history..." oninput="renderH(this.value)">
+    </div>
+    <div id="h-list"></div>
+</div>
+
+<main>
+    <header>
+        <button class="btn-icon" onclick="toggleS()">☰</button>
+        <div class="logo">NOVA MIND</div>
+        <div style="display:flex;gap:10px;">
+            <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
         </div>
-        <div id="h-list"></div>
+        <div id="theme-menu" class="drop-menu theme-pos">
+            <div class="menu-item" onclick="setT('default')">🌿 Default Green</div>
+            <div class="menu-item" onclick="setT('neon')">🔮 Cyber Neon</div>
+            <div class="menu-item" onclick="setT('ice')">🧊 Ice Blue</div>
+            <div class="menu-item" onclick="setT('gold')">👑 Luxury Gold</div>
+        </div>
+    </header>
+
+    <div id="chat-box"></div>
+
+    <div id="set-menu" class="drop-menu set-pos">
+        <div class="menu-item" onclick="toggleComfort()" id="cm-btn">💖 Comfort Mode: OFF</div>
+        <div class="menu-item" onclick="generateImage()">🖼️ Image Gen</div>
+        <div class="menu-item" onclick="generateVideo()">🎬 Video Gen</div>
     </div>
 
-    <main>
-        <header>
-            <button class="btn-icon" onclick="toggleS()">☰</button>
-            <div class="logo">NOVA MIND</div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-icon" onclick="promptApiKey()">🔑</button>
-                <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
-            </div>
-            <div id="theme-menu" class="drop-menu theme-pos">
-                <div class="menu-item" onclick="setT('default')">🌿 سبز کلاسیک</div>
-                <div class="menu-item" onclick="setT('neon')">🔮 نئون سایبری</div>
-                <div class="menu-item" onclick="setT('ice')">🧊 آبی یخی</div>
-                <div class="menu-item" onclick="setT('gold')">👑 طلایی لوکس</div>
-            </div>
-        </header>
-
-        <div id="chat-box"></div>
-
-        <div id="set-menu" class="drop-menu set-pos">
-            <div class="menu-item" onclick="toggleComfort()" id="cm-btn">💖 حالت راحتی: خاموش</div>
-            <div class="menu-item" onclick="generateImage()">🖼️ تولید تصویر</div>
-            <div class="menu-item" onclick="generateVideo()">🎬 تولید ویدیو</div>
+    <footer>
+        <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
+        <div class="input-wrap">
+            <input type="text" id="ui" placeholder="Ask me anything..." autocomplete="off">
         </div>
+        <button id="sb" class="btn-icon" onclick="send()">🚀</button>
+    </footer>
+</main>
 
-        <footer>
-            <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
-            <div class="input-wrap">
-                <input type="text" id="ui" placeholder="چطور می‌توانم کمکتان کنم؟..." autocomplete="off">
-            </div>
-            <button id="sb" class="btn-icon" onclick="send()">🚀</button>
-        </footer>
-    </main>
-
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
