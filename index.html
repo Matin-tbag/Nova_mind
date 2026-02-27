@@ -3,42 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nova Mind AI</title>
+    <title>Nova Mind AI - Pro</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body class="theme-default">
 
 <div id="sidebar">
-    <button class="btn-new" onclick="newChat()">+ New Chat</button>
-    <div id="h-list"></div>
+    <div class="side-inner">
+        <button class="btn-new" onclick="newChat()">+ New Chat</button>
+        <input type="text" class="search-bar" placeholder="Search history..." oninput="renderH(this.value)">
+        <div id="h-list"></div>
+    </div>
 </div>
 
 <div id="overlay" onclick="toggleS()"></div>
 
-<div id="app-wrapper">
+<div id="app">
     <header>
         <button class="btn-icon" onclick="toggleS()">☰</button>
         <div class="logo">NOVA MIND</div>
-        <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
-        <div id="theme-menu" class="drop-menu">
-            <div onclick="setT('default')" class="menu-item">Default</div>
-            <div onclick="setT('neon')" class="menu-item">Neon</div>
+        <div class="head-btns">
+            <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
+            <div id="theme-menu" class="drop-menu">
+                <div onclick="setT('default')" class="menu-item">Default Dark</div>
+                <div onclick="setT('neon')" class="menu-item">Neon Green</div>
+                <div onclick="setT('ice')" class="menu-item">Ice Blue</div>
+                <div onclick="setT('sunset')" class="menu-item">Sunset Gold</div>
+            </div>
         </div>
     </header>
 
     <div id="chat-box"></div>
 
-    <div class="input-area">
-        <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
-        <div class="input-wrap">
-            <input type="text" id="ui" placeholder="Ask Nova anything...">
+    <div class="bottom-area">
+        <div class="input-container">
+            <button class="btn-icon" onclick="toggleM('settings-menu')">⚙️</button>
+            <div class="field-wrap">
+                <input type="text" id="ui" placeholder="Type your message...">
+            </div>
+            <button class="btn-icon" onclick="send()" id="sb">🚀</button>
         </div>
-        <button class="btn-icon" onclick="send()">🚀</button>
-        
-        <div id="set-menu" class="drop-menu">
+
+        <div id="settings-menu" class="drop-menu">
             <div onclick="updateKey()" class="menu-item">🔑 Set API Key</div>
-            <div onclick="toggleComfort()" class="menu-item">💖 Comfort Mode</div>
+            <div onclick="toggleComfort()" class="menu-item" id="cm-btn">💖 Comfort Mode: OFF</div>
+            <div onclick="genImg()" class="menu-item">🖼️ Generate Image</div>
+            <div onclick="genVid()" class="menu-item">🎥 Generate Video</div>
         </div>
     </div>
 </div>
