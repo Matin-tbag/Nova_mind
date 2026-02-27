@@ -1,59 +1,59 @@
-:root {
-    --p: #10a37f; /* سبز مشابه چت‌جی‌پی‌تی */
-    --bg: #212121;
-    --msg-user: #2f2f2f;
-    --txt: #ececec;
+:root { --p: #10a37f; --bg: #1a1a1a; --txt: #e0e0e0; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+
+body { background: var(--bg); color: var(--txt); height: 100vh; overflow: hidden; }
+
+.app-container { display: flex; flex-direction: column; height: 100vh; width: 100%; }
+
+header { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; flex-shrink: 0; }
+.logo { font-size: 16px; font-weight: bold; letter-spacing: 1px; color: var(--p); }
+
+#chat-box { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    -webkit-overflow-scrolling: touch; 
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-
-body { background: var(--bg); color: var(--txt); height: 100vh; overflow: hidden; display: flex; }
-
-main { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
-
-/* Header */
-header { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-.logo { font-weight: 600; letter-spacing: 1px; opacity: 0.8; }
-
-/* Chat Box - No extra borders */
-#chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 24px; scroll-behavior: smooth; }
-
-/* Messages - Transparent & Minimal */
-.msg { max-width: 85%; line-height: 1.6; font-size: 16px; position: relative; }
-.user { align-self: flex-end; background: var(--msg-user); padding: 12px 20px; border-radius: 20px; color: #fff; }
-.ai { align-self: flex-start; background: transparent; padding: 0; width: 100%; }
-
-/* Input Card - ChatGPT Style */
-.input-area { padding: 20px; display: flex; justify-content: center; background: linear-gradient(transparent, var(--bg) 50%); }
-.input-card { 
-    width: 100%; max-width: 760px; background: #2f2f2f; border-radius: 26px; 
-    display: flex; align-items: center; padding: 8px 16px; position: relative;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+/* پیام‌ها: کوچک‌تر و بدون کادر اضافی برای AI */
+.msg { line-height: 1.5; max-width: 85%; font-size: 14.5px; word-wrap: break-word; }
+.user { 
+    align-self: flex-end; 
+    background: #333; 
+    padding: 8px 14px; 
+    border-radius: 15px; 
+    border-bottom-right-radius: 4px;
 }
-#ui { flex: 1; background: none; border: none; color: #fff; outline: none; padding: 10px; font-size: 16px; }
+.ai { align-self: flex-start; width: 100%; color: #fff; }
 
-.icon-btn { background: none; border: none; color: #b4b4b4; cursor: pointer; font-size: 20px; transition: 0.2s; }
-.icon-btn:hover { color: #fff; }
+/* کادر ورودی شیک و جمع‌وجور مشابه ChatGPT */
+.input-area { padding: 10px 15px 25px; background: var(--bg); flex-shrink: 0; }
+.input-wrapper { 
+    max-width: 700px; 
+    margin: 0 auto; 
+    background: #2a2a2a; 
+    border-radius: 20px; 
+    display: flex; 
+    align-items: center; 
+    padding: 4px 12px;
+    position: relative;
+    border: 1px solid #3a3a3a;
+}
+#ui { flex: 1; background: none; border: none; color: #fff; height: 38px; outline: none; font-size: 14px; }
+
+.icon-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 18px; padding: 4px; }
 .send-btn { color: var(--p); }
 
 /* Sidebar */
-#sidebar { position: fixed; left: -280px; width: 280px; height: 100%; background: #171717; transition: 0.3s; z-index: 1000; padding: 20px; }
+#sidebar { position: fixed; left: -260px; width: 250px; height: 100%; background: #111; transition: 0.3s; z-index: 1000; padding: 15px; }
 #sidebar.active { left: 0; }
-.btn-new { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #444; background: none; color: #fff; cursor: pointer; margin-bottom: 20px; }
+#overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 900; }
+#overlay.active { display: block; }
+.btn-new { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; cursor: pointer; font-size: 13px; }
 
-/* Notifications */
-.notif { 
-    position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
-    background: #333; color: #fff; padding: 10px 20px; border-radius: 10px; 
-    display: none; z-index: 9999; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* Dropups */
-.drop-up { 
-    position: absolute; bottom: 70px; left: 0; background: #2f2f2f; 
-    border-radius: 12px; border: 1px solid #444; display: none; flex-direction: column; 
-    min-width: 180px; overflow: hidden; z-index: 2000; 
-}
-.drop-up div { padding: 12px; cursor: pointer; font-size: 14px; }
-.drop-up div:hover { background: #444; }
+.drop-up { position: absolute; bottom: 50px; left: 0; background: #222; border-radius: 8px; display: none; flex-direction: column; min-width: 140px; border: 1px solid #333; }
 .show { display: flex; }
+.drop-up div { padding: 10px; cursor: pointer; font-size: 13px; border-bottom: 1px solid #333; }
