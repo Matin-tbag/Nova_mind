@@ -3,55 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nova Mind AI</title>
+    <title>Nova Mind</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="theme-default">
 
-    <div id="overlay" onclick="toggleS()"></div>
-    <div id="notif"></div>
+<div id="overlay" onclick="toggleS()"></div>
+<div id="notif"></div>
 
-    <div id="sidebar">
-        <div class="side-head">
-            <button onclick="newChat()" class="btn-new">+ NEW SESSION</button>
-            <input type="text" class="search-box" placeholder="Search history..." oninput="renderH(this.value)">
+<div id="sidebar">
+    <div class="side-head">
+        <button onclick="newChat()" class="btn-new">+ NEW SESSION</button>
+        <input type="text" class="search-box" placeholder="Search history..." oninput="renderH(this.value)">
+    </div>
+    <div id="h-list"></div>
+</div>
+
+<main>
+    <header>
+        <button class="btn-icon" onclick="toggleS()">☰</button>
+        <div class="logo">NOVA MIND</div>
+        <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
+        <div id="theme-menu" class="drop-menu theme-pos">
+            <div class="menu-item" onclick="setT('default')">🌿 Classic Green</div>
+            <div class="menu-item" onclick="setT('neon')">🔮 Cyber Neon</div>
+            <div class="menu-item" onclick="setT('ice')">🧊 Ice Blue</div>
+            <div class="menu-item" onclick="setT('gold')">👑 Luxury Gold</div>
         </div>
-        <div id="h-list"></div>
+    </header>
+
+    <div id="chat-box"></div>
+
+    <div id="set-menu" class="drop-menu set-pos">
+        <div class="menu-item" onclick="updateAPIKey()">🔑 Set API Key</div>
+        <div class="menu-item" onclick="toggleComfort()" id="cm-btn">💖 Comfort Mode: OFF</div>
+        <div class="menu-item" onclick="showNotif('Coming Soon')">🖼️ Generate Image</div>
+        <div class="menu-item" onclick="showNotif('Coming Soon')">🎬 Generate Video</div>
     </div>
 
-    <main>
-        <header>
-            <button class="btn-icon" onclick="toggleS()">☰</button>
-            <div class="logo">NOVA MIND</div>
-            <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
-            
-            <div id="theme-menu" class="drop-menu theme-pos">
-                <div class="menu-item" onclick="setT('default')">🌿 Classic Green</div>
-                <div class="menu-item" onclick="setT('neon')">🔮 Cyber Neon</div>
-                <div class="menu-item" onclick="setT('ice')">🧊 Ice Blue</div>
-                <div class="menu-item" onclick="setT('gold')">👑 Luxury Gold</div>
-            </div>
-        </header>
-
-        <div id="chat-box"></div>
-
-        <div id="set-menu" class="drop-menu set-pos">
-            <div class="menu-item" onclick="updateAPIKey()">🔑 Set API Key</div>
-            <div class="menu-item" onclick="toggleComfort()" id="cm-btn">💖 Comfort Mode: OFF</div>
-            <div class="menu-item" onclick="showNotif('Image Module Coming Soon')">🖼️ Generate Image</div>
-            <div class="menu-item" onclick="showNotif('Video Module Pending')">🎬 Generate Video</div>
+    <footer>
+        <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
+        <div class="input-wrap">
+            <input type="text" id="ui" placeholder="How can I help you?..." autocomplete="off">
         </div>
+        <button id="sb" class="btn-icon" onclick="send()">🚀</button>
+    </footer>
+</main>
 
-        <footer>
-            <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
-            <div class="input-wrap">
-                <input type="text" id="ui" placeholder="How can I help you?..." autocomplete="off">
-            </div>
-            <button id="sb" class="btn-icon" onclick="send()">🚀</button>
-        </footer>
-    </main>
-
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
