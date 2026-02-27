@@ -1,46 +1,59 @@
-:root { --p: #76b900; --bg: #0b0b0b; --pan: #161616; --txt: #fff; }
-.theme-neon { --p: #00ff41; --bg: #000; }
-.theme-ice { --p: #00d4ff; --bg: #050a0f; }
-.theme-sunset { --p: #ff8c00; --bg: #1a0f05; }
+:root {
+    --p: #10a37f; /* سبز مشابه چت‌جی‌پی‌تی */
+    --bg: #212121;
+    --msg-user: #2f2f2f;
+    --txt: #ececec;
+}
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-body { background: var(--bg); color: var(--txt); height: 100vh; display: flex; overflow: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
 
-#app { display: flex; flex-direction: column; width: 100%; height: 100vh; }
-header { height: 60px; background: var(--pan); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid #333; flex-shrink: 0; }
-.logo { color: var(--p); font-weight: bold; font-size: 20px; letter-spacing: 2px; }
+body { background: var(--bg); color: var(--txt); height: 100vh; overflow: hidden; display: flex; }
 
-#chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+main { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
 
-.bottom-area { padding: 10px 15px 25px; background: var(--pan); border-top: 1px solid #333; position: relative; flex-shrink: 0; }
-.input-container { display: flex; align-items: center; gap: 10px; background: #000; border: 1px solid #444; border-radius: 15px; padding: 5px 10px; }
-.field-wrap { flex: 1; }
-#ui { width: 100%; height: 45px; background: none; border: none; color: #fff; outline: none; font-size: 16px; }
+/* Header */
+header { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.logo { font-weight: 600; letter-spacing: 1px; opacity: 0.8; }
 
-.btn-icon { background: none; border: none; color: var(--p); font-size: 24px; cursor: pointer; transition: 0.2s; }
-.btn-icon:hover { transform: scale(1.1); }
+/* Chat Box - No extra borders */
+#chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 24px; scroll-behavior: smooth; }
 
-/* Sidebar & History */
-#sidebar { position: fixed; left: -280px; width: 270px; height: 100%; background: var(--pan); transition: 0.3s; z-index: 2000; border-right: 1px solid #333; }
+/* Messages - Transparent & Minimal */
+.msg { max-width: 85%; line-height: 1.6; font-size: 16px; position: relative; }
+.user { align-self: flex-end; background: var(--msg-user); padding: 12px 20px; border-radius: 20px; color: #fff; }
+.ai { align-self: flex-start; background: transparent; padding: 0; width: 100%; }
+
+/* Input Card - ChatGPT Style */
+.input-area { padding: 20px; display: flex; justify-content: center; background: linear-gradient(transparent, var(--bg) 50%); }
+.input-card { 
+    width: 100%; max-width: 760px; background: #2f2f2f; border-radius: 26px; 
+    display: flex; align-items: center; padding: 8px 16px; position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+#ui { flex: 1; background: none; border: none; color: #fff; outline: none; padding: 10px; font-size: 16px; }
+
+.icon-btn { background: none; border: none; color: #b4b4b4; cursor: pointer; font-size: 20px; transition: 0.2s; }
+.icon-btn:hover { color: #fff; }
+.send-btn { color: var(--p); }
+
+/* Sidebar */
+#sidebar { position: fixed; left: -280px; width: 280px; height: 100%; background: #171717; transition: 0.3s; z-index: 1000; padding: 20px; }
 #sidebar.active { left: 0; }
-#overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 1500; }
-#overlay.active { display: block; }
-.btn-new { width: 100%; padding: 12px; background: var(--p); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
-.h-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #222; cursor: pointer; }
-.h-item:hover { background: #222; }
+.btn-new { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #444; background: none; color: #fff; cursor: pointer; margin-bottom: 20px; }
 
-/* Dropdowns */
-.drop-menu { position: absolute; background: #1a1a1a; border: 1px solid #444; border-radius: 10px; display: none; flex-direction: column; min-width: 180px; z-index: 3000; overflow: hidden; }
-.drop-menu.show { display: flex; }
-header .drop-menu { top: 60px; right: 15px; }
-.bottom-area .drop-menu { bottom: 85px; left: 15px; }
-.menu-item { padding: 12px; cursor: pointer; font-size: 14px; }
-.menu-item:hover { background: var(--p); color: #000; }
+/* Notifications */
+.notif { 
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+    background: #333; color: #fff; padding: 10px 20px; border-radius: 10px; 
+    display: none; z-index: 9999; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
-/* Messages */
-.msg { padding: 12px; border-radius: 12px; max-width: 85%; line-height: 1.6; }
-.user { align-self: flex-end; background: var(--p); color: #000; }
-.ai { align-self: flex-start; background: #262626; color: #fff; }
-
-/* Comfort Mode */
-body.comfort-active .msg { padding: 25px; margin: 10px 0; font-size: 18px; }
+/* Dropups */
+.drop-up { 
+    position: absolute; bottom: 70px; left: 0; background: #2f2f2f; 
+    border-radius: 12px; border: 1px solid #444; display: none; flex-direction: column; 
+    min-width: 180px; overflow: hidden; z-index: 2000; 
+}
+.drop-up div { padding: 12px; cursor: pointer; font-size: 14px; }
+.drop-up div:hover { background: #444; }
+.show { display: flex; }
