@@ -1,121 +1,48 @@
-let chats = JSON.parse(localStorage.getItem("nova_data")) || [];
-let curId = null;
-let comfortMode = false;
-
-// اولویت اول: اجرای کدهای ظاهری بلافاصله بعد از لود صفحه
-window.onload = () => {
-    renderH();
-    if (chats.length > 0) loadChat(chats[0].id);
-    else newChat();
-    
-    document.getElementById("ui").onkeypress = e => { if (e.key === "Enter") send(); }
-};
-
-function toggleS() {
-    document.getElementById("sidebar").classList.toggle("active");
-    document.getElementById("overlay").classList.toggle("active");
+:root {
+    --p: #76b900;
+    --bg: #0b0b0b;
+    --pan: #161616;
+    --txt: #d1d1d1;
 }
 
-function toggleM(id) {
-    const m = document.getElementById(id);
-    const isOpen = m.classList.contains("show");
-    document.querySelectorAll(".drop-menu").forEach(x => x.classList.remove("show"));
-    if (!isOpen) m.classList.add("show");
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
 
-function updateKey() {
-    const k = prompt("Enter OpenRouter API Key:");
-    if (k) {
-        localStorage.setItem("nova_api_key", k);
-        alert("API Key Saved!");
-    }
-}
+body { background: var(--bg); color: var(--txt); height: 100vh; display: flex; overflow: hidden; }
 
-async function send() {
-    const inp = document.getElementById("ui"), txt = inp.value.trim();
-    const API_KEY = localStorage.getItem("nova_api_key");
+/* Sidebar */
+#sidebar { position: fixed; left: -260px; width: 250px; height: 100%; background: var(--pan); transition: 0.3s; z-index: 1000; border-right: 1px solid #333; padding: 15px; }
+#sidebar.active { left: 0; }
+#overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 900; }
+#overlay.active { display: block; }
 
-    if (!txt) return;
-    if (!API_KEY) { 
-        updateKey(); 
-        return; 
-    }
+.btn-new { width: 100%; padding: 10px; background: var(--p); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+.search-box { width: 100%; padding: 8px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; margin-bottom: 10px; }
 
-    if (!curId) newChat();
-    addM(txt, "user");
-    inp.value = "";
+/* Main Area */
+main { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
 
-    const tid = "ai-" + Date.now();
-    addM("Thinking...", "ai", tid);
+header { height: 60px; background: var(--pan); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid #333; }
+.logo { color: var(--p); font-weight: bold; font-size: 20px; }
 
-    try {
-        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${API_KEY}`,
-                "Content-Type": "application/json",
-                "HTTP-Referer": window.location.origin,
-            },
-            body: JSON.stringify({
-                model: "google/gemini-2.0-flash-001",
-                messages: [{role: "user", content: txt}]
-            })
-        });
+#chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; padding-bottom: 100px; }
 
-        const data = await res.json();
-        const answer = data.choices[0].message.content;
-        
-        document.getElementById(tid).innerHTML = marked.parse(answer);
-        
-        // ذخیره در تاریخچه
-        let session = chats.find(x => x.id === curId);
-        session.msgs.push({ u: txt, a: answer });
-        localStorage.setItem("nova_data", JSON.stringify(chats));
-        
-    } catch (e) {
-        document.getElementById(tid).innerText = "Error! Please check your API Key in settings (Gear icon).";
-    }
-}
+/* Footer - The part you were missing */
+footer { position: absolute; bottom: 0; width: 100%; height: 80px; background: var(--pan); display: flex; align-items: center; gap: 10px; padding: 0 15px; border-top: 1px solid #333; z-index: 100; }
 
-function addM(t, r, id) {
-    const b = document.getElementById("chat-box");
-    const d = document.createElement("div");
-    d.className = "msg " + (r === "user" ? "user" : "ai");
-    if (id) d.id = id;
-    d.innerHTML = (r === "ai" && t !== "Thinking...") ? marked.parse(t) : t;
-    b.appendChild(d);
-    b.scrollTop = b.scrollHeight;
-}
+.input-wrap { flex: 1; background: #000; border-radius: 10px; border: 1px solid #444; padding: 5px 15px; }
+#ui { width: 100%; height: 40px; background: none; border: none; color: white; outline: none; font-size: 16px; }
 
-function newChat() {
-    curId = Date.now();
-    chats.unshift({ id: curId, name: "Chat " + (chats.length + 1), msgs: [] });
-    document.getElementById("chat-box").innerHTML = "";
-    addM("Hello! I am Nova. How can I help you?", "ai");
-    renderH();
-}
+.btn-icon { background: none; border: none; color: var(--p); font-size: 24px; cursor: pointer; }
 
-function renderH(f = "") {
-    const l = document.getElementById("h-list");
-    l.innerHTML = "";
-    chats.filter(x => x.name.toLowerCase().includes(f.toLowerCase())).forEach((x, i) => {
-        const div = document.createElement("div");
-        div.style.padding = "10px";
-        div.style.cursor = "pointer";
-        div.style.borderBottom = "1px solid #333";
-        div.innerHTML = `<span onclick="loadChat(${x.id})">💬 ${x.name}</span>`;
-        l.appendChild(div);
-    });
-}
+/* Dropdowns */
+.drop-menu { position: absolute; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; display: none; flex-direction: column; min-width: 160px; z-index: 2000; }
+.drop-menu.show { display: flex; }
+header .drop-menu { top: 60px; right: 15px; }
+footer .drop-menu { bottom: 85px; left: 15px; }
+.menu-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #222; }
+.menu-item:hover { background: var(--p); color: #000; }
 
-function loadChat(id) {
-    curId = id;
-    const c = chats.find(x => x.id === id);
-    document.getElementById("chat-box").innerHTML = "";
-    c.msgs.forEach(m => { addM(m.u, "user"); addM(m.a, "ai"); });
-}
-
-function setT(t) {
-    document.body.className = (t === 'default') ? '' : "theme-" + t;
-    document.querySelectorAll(".drop-menu").forEach(x => x.classList.remove("show"));
-}
+/* Messages */
+.msg { padding: 12px; border-radius: 10px; max-width: 80%; line-height: 1.5; }
+.user { align-self: flex-end; background: var(--p); color: #000; }
+.ai { align-self: flex-start; background: #222; color: #fff; }
