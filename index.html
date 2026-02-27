@@ -3,56 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nova Mind AI - Pro</title>
+    <title>Nova Mind</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body class="theme-default">
+<body>
+
+<div id="notif" class="notif"></div>
 
 <div id="sidebar">
-    <div class="side-inner">
+    <div class="side-content">
         <button class="btn-new" onclick="newChat()">+ New Chat</button>
-        <input type="text" class="search-bar" placeholder="Search history..." oninput="renderH(this.value)">
         <div id="h-list"></div>
     </div>
 </div>
 
 <div id="overlay" onclick="toggleS()"></div>
 
-<div id="app">
+<main>
     <header>
-        <button class="btn-icon" onclick="toggleS()">☰</button>
-        <div class="logo">NOVA MIND</div>
-        <div class="head-btns">
-            <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
-            <div id="theme-menu" class="drop-menu">
-                <div onclick="setT('default')" class="menu-item">Default Dark</div>
-                <div onclick="setT('neon')" class="menu-item">Neon Green</div>
-                <div onclick="setT('ice')" class="menu-item">Ice Blue</div>
-                <div onclick="setT('sunset')" class="menu-item">Sunset Gold</div>
-            </div>
+        <button class="icon-btn" onclick="toggleS()">☰</button>
+        <div class="logo">NOVA</div>
+        <button class="icon-btn" onclick="toggleM('theme-menu')">✨</button>
+        <div id="theme-menu" class="drop-up">
+            <div onclick="setT('default')">Default</div>
+            <div onclick="setT('neon')">Neon</div>
+            <div onclick="setT('ice')">Ice</div>
         </div>
     </header>
 
     <div id="chat-box"></div>
 
-    <div class="bottom-area">
-        <div class="input-container">
-            <button class="btn-icon" onclick="toggleM('settings-menu')">⚙️</button>
-            <div class="field-wrap">
-                <input type="text" id="ui" placeholder="Type your message...">
+    <div class="input-area">
+        <div class="input-card">
+            <button class="icon-btn" onclick="toggleM('opt-menu')">⚙️</button>
+            <input type="text" id="ui" placeholder="Message Nova..." autocomplete="off">
+            <button class="icon-btn send-btn" onclick="send()" id="sb">🚀</button>
+            
+            <div id="opt-menu" class="drop-up settings-menu">
+                <div onclick="updateKey()">🔑 API Key</div>
+                <div onclick="toggleComfort()">💖 Comfort Mode</div>
+                <div onclick="alert('Coming Soon')">🖼️ Image</div>
             </div>
-            <button class="btn-icon" onclick="send()" id="sb">🚀</button>
-        </div>
-
-        <div id="settings-menu" class="drop-menu">
-            <div onclick="updateKey()" class="menu-item">🔑 Set API Key</div>
-            <div onclick="toggleComfort()" class="menu-item" id="cm-btn">💖 Comfort Mode: OFF</div>
-            <div onclick="genImg()" class="menu-item">🖼️ Generate Image</div>
-            <div onclick="genVid()" class="menu-item">🎥 Generate Video</div>
         </div>
     </div>
-</div>
+</main>
 
 <script src="main.js"></script>
 </body>
