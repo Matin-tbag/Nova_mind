@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nova Mind</title>
+    <title>Nova Mind AI</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
-<div id="notif" class="notif"></div>
-
 <div id="sidebar">
-    <div class="side-content">
+    <div class="side-head">
         <button class="btn-new" onclick="newChat()">+ New Chat</button>
-        <div id="h-list"></div>
     </div>
+    <div id="h-list"></div>
 </div>
 
 <div id="overlay" onclick="toggleS()"></div>
 
-<main>
+<div class="app-container">
     <header>
         <button class="icon-btn" onclick="toggleS()">☰</button>
         <div class="logo">NOVA</div>
@@ -28,26 +26,23 @@
         <div id="theme-menu" class="drop-up">
             <div onclick="setT('default')">Default</div>
             <div onclick="setT('neon')">Neon</div>
-            <div onclick="setT('ice')">Ice</div>
         </div>
     </header>
 
     <div id="chat-box"></div>
 
     <div class="input-area">
-        <div class="input-card">
+        <div class="input-wrapper">
             <button class="icon-btn" onclick="toggleM('opt-menu')">⚙️</button>
-            <input type="text" id="ui" placeholder="Message Nova..." autocomplete="off">
-            <button class="icon-btn send-btn" onclick="send()" id="sb">🚀</button>
-            
-            <div id="opt-menu" class="drop-up settings-menu">
+            <input type="text" id="ui" placeholder="Ask Nova..." autocomplete="off">
+            <button class="icon-btn send-btn" onclick="send()">🚀</button>
+            <div id="opt-menu" class="drop-up">
                 <div onclick="updateKey()">🔑 API Key</div>
-                <div onclick="toggleComfort()">💖 Comfort Mode</div>
-                <div onclick="alert('Coming Soon')">🖼️ Image</div>
+                <div onclick="toggleComfort()">💖 Comfort</div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
 <script src="main.js"></script>
 </body>
