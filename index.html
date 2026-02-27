@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nova Mind AI</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -10,43 +10,38 @@
 <body>
 
 <div id="sidebar">
-    <div class="side-head">
-        <button onclick="newChat()" class="btn-new">+ New Chat</button>
-        <input type="text" class="search-box" placeholder="Search..." oninput="renderH(this.value)">
-    </div>
+    <button class="btn-new" onclick="newChat()">+ New Chat</button>
     <div id="h-list"></div>
 </div>
 
 <div id="overlay" onclick="toggleS()"></div>
 
-<main>
+<div id="app-wrapper">
     <header>
         <button class="btn-icon" onclick="toggleS()">☰</button>
         <div class="logo">NOVA MIND</div>
         <button class="btn-icon" onclick="toggleM('theme-menu')">✨</button>
-
         <div id="theme-menu" class="drop-menu">
             <div onclick="setT('default')" class="menu-item">Default</div>
             <div onclick="setT('neon')" class="menu-item">Neon</div>
-            <div onclick="setT('ice')" class="menu-item">Ice</div>
         </div>
     </header>
 
     <div id="chat-box"></div>
 
-    <footer>
+    <div class="input-area">
         <button class="btn-icon" onclick="toggleM('set-menu')">⚙️</button>
         <div class="input-wrap">
-            <input type="text" id="ui" placeholder="Type message...">
+            <input type="text" id="ui" placeholder="Ask Nova anything...">
         </div>
         <button class="btn-icon" onclick="send()">🚀</button>
-
+        
         <div id="set-menu" class="drop-menu">
             <div onclick="updateKey()" class="menu-item">🔑 Set API Key</div>
-            <div onclick="toggleComfort()" class="menu-item" id="cm-btn">💖 Comfort Mode: OFF</div>
+            <div onclick="toggleComfort()" class="menu-item">💖 Comfort Mode</div>
         </div>
-    </footer>
-</main>
+    </div>
+</div>
 
 <script src="main.js"></script>
 </body>
